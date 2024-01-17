@@ -1,5 +1,6 @@
 package com.study.todoapi.todo.controller;
 
+import com.study.todoapi.todo.dto.request.TodoCreateRequestDTO;
 import com.study.todoapi.todo.entity.Todo;
 import com.study.todoapi.todo.service.TodoService;
 import lombok.RequiredArgsConstructor;
@@ -20,9 +21,9 @@ public class TodoController {
 
     // 할 일 등록 요청
     @PostMapping
-    public ResponseEntity<?> createTodo(@RequestBody Todo todo) {
+    public ResponseEntity<?> createTodo(@RequestBody TodoCreateRequestDTO dto) {
 
-        todoService.create(todo);
+        todoService.create(dto);
 
         return ResponseEntity.ok().body("ok");
     }
