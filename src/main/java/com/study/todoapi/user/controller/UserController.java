@@ -2,7 +2,9 @@ package com.study.todoapi.user.controller;
 
 import com.study.todoapi.exception.DuplicatedEmailException;
 import com.study.todoapi.exception.NoRegisteredArgumentsException;
+import com.study.todoapi.user.dto.request.LoginRequestDTO;
 import com.study.todoapi.user.dto.request.UserSignUpRequestDTO;
+import com.study.todoapi.user.dto.response.LoginResponseDTO;
 import com.study.todoapi.user.dto.response.UserSignUpResponse;
 import com.study.todoapi.user.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +20,7 @@ import java.security.DigestException;
 @Slf4j
 @RequiredArgsConstructor
 @RequestMapping("/api/auth")
-@CrossOrigin(origins = "http://localhost:3000")
+//@CrossOrigin(origins = "http://localhost:3000")
 public class UserController {
     private final UserService userService;
 
@@ -46,5 +48,19 @@ public class UserController {
     public ResponseEntity<?> check(String email){
         boolean duplicateEmail = userService.isDuplicateEmail(email);
         return ResponseEntity.ok().body(duplicateEmail);
+    }
+    //로그인 요청 처리
+    @PostMapping("/signin")
+    public ResponseEntity<?> signIn(@Validated @RequestBody LoginRequestDTO dto) {
+        try {
+            LoginResponseDTO responseDTO = userService.authenticate(dto);
+            log.info("login success !! by {}", responseDTO.getEmail());
+            return ResponseEntity.ok().body(responseDTO);
+        } catch (RuntimeException e) {
+            log.warn(e.getMessage());
+
+            return ResponseEntity.badRequest().body(e.getMessage());
+
+        }
     }
 }

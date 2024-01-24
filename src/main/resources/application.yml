@@ -23,3 +23,6 @@ logging:
     root: info
     org.hibernate.SQL: debug
     com.study.todoapi: debug
+
+jwt:
+  secret: /pwXUoeJjYtSY2ZWQSjGLaZzL8K/LcDbBs9AqIB3S1GYk7WIsRMmalSRu7tz4RtSp1A4OAt/wdRBlCRwbsbI88A==

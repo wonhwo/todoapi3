@@ -1,22 +1,25 @@
 package com.study.todoapi.user.entity;
 
+import com.study.todoapi.todo.entity.Todo;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
+@Builder
 @Setter @Getter
 @ToString
-@EqualsAndHashCode
 @NoArgsConstructor
+@EqualsAndHashCode
 @AllArgsConstructor
-@Builder
 @Entity
 @Table(name = "tbl_user")
 public class User {
-
     @Id
     @Column(name = "user_id")
     @GeneratedValue(generator = "system-uuid")
@@ -34,4 +37,11 @@ public class User {
 
     @CreationTimestamp
     private LocalDateTime joinDate;
+    @Enumerated(EnumType.STRING)
+    @Builder.Default //회원가입시 자동으로 기본값 처리
+//    @ColumnDefault("'COMMON'")
+    private Role role=Role.COMMON;
+    @OneToMany(mappedBy = "user")
+    private List<Todo> todoList=new ArrayList<>();
+
 }
