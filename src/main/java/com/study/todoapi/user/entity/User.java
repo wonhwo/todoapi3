@@ -13,7 +13,7 @@ import java.util.List;
 
 @Builder
 @Setter @Getter
-@ToString
+@ToString(exclude = "todoList")
 @NoArgsConstructor
 @EqualsAndHashCode
 @AllArgsConstructor
@@ -41,7 +41,12 @@ public class User {
     @Builder.Default //회원가입시 자동으로 기본값 처리
 //    @ColumnDefault("'COMMON'")
     private Role role=Role.COMMON;
+
     @OneToMany(mappedBy = "user")
     private List<Todo> todoList=new ArrayList<>();
 
+    public void addTodo(Todo todo) {
+        this.todoList.add(todo);
+        todo.setUser(this);
+    }
 }
