@@ -35,4 +35,6 @@ dependencies {
 tasks.named('test') {
     useJUnitPlatform()
 }
+//파일업로드 라이브러리
+implementation 'commons-io:commons-io:2.8.0'
 ```

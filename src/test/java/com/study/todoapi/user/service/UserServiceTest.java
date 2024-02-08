@@ -31,7 +31,7 @@ class UserServiceTest {
                 .userName("외계인")
                 .build();
         //when
-        UserSignUpResponse responseDTO = userService.create(dto);
+        UserSignUpResponse responseDTO = userService.create(dto,"");
 
         //then
         assertEquals("외계인", responseDTO.getUserName());
